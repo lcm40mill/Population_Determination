@@ -22,6 +22,8 @@ from arable_supply import *
 #       [] Subsistence (a family needs to eat)
 #   [] Total Grain surplus = Net Grain Surplus + Percentage of Lordly Tax that does not get used (~20%)
 # [] Determine max urban population based off of grain surplus
+# stuff and things
+
 
 
 def main():
