@@ -65,14 +65,14 @@ def main():
 
 
 
-    #print(f'Land utilized for agriculture is {useable_arable_land:,} acres.')
-    #print(f'The typical plot size in the current area is: {Soil_Dict[zone]["Plot Size"]} acres.')
-    #print(f'The yield modifier for grain harvest is {yield_mod}.')
-    #print(f'The number of farming families in the area is {farming_families:,} families, the total rural population is {rural_population:,} people.')
-    #print(f'The maximum urban and non-farmer population of this city is {max_urban_population:,} people')
+    print(f'Land utilized for agriculture is {useable_arable_land:,} acres.')
+    print(f'The typical plot size in the current area is: {Soil_Dict[zone]["Plot Size"]} acres.')
+    print(f'The yield modifier for grain harvest is {yield_mod}.')
+    print(f'The number of farming families in the area is {farming_families:,} families, the total rural population is {rural_population:,} people.')
+    print(f'The maximum urban and non-farmer population of this city is {max_urban_population:,} people')
     print(f'The gross harvest this city should expect is {gross_harvest:,} buckets of grain.')
     print(f'Gross Harvest after taxes is {harvest_after_taxes:,} buckets of grain.')
-    print(f'Grain buckets left are spoilage is {harvest_after_spoilage:,}.')
+    print(f'Grain buckets left after spoilage is {harvest_after_spoilage:,}.')
 
 
 main()
