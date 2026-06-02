@@ -8,6 +8,9 @@ AVERAGE_FARMER_FAMILY_SIZE = 5
 AVERAGE_GRAIN_PLANTED_PER_ACRE = 2.4 
 GRAIN_BUCKET_QUANTITY_LBS = 55
 
+# Percentage of grain harvest that will spoil or be contaminated, based on harvest after taxes
+GRAIN_SPOILAGE_PER_HARVEST = 0.2
+
 ACRES_PER_SQUARE_MILE = 640
 
 # Number of grain buckets required

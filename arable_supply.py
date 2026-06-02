@@ -66,3 +66,8 @@ def gross_grain_harvest(farm_plot_count, field_size, field_system, yield_modifie
     gross_harvest = farm_plot_count * field_size * field_system * Constants.AVERAGE_GRAIN_PLANTED_PER_ACRE * yield_modifier
     return gross_harvest
 
+def determine_capitol_taxes(gross_harvest, capitol_tax):
+    return gross_harvest * (capitol_tax)
+
+def determine_religious_tithe(gross_harvest, religious_tithe):
+    return gross_harvest * (religious_tithe)

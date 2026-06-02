@@ -10,12 +10,12 @@ from arable_supply import *
 # [x] Apply tech modifiers for yield, arable land usage, and population dispersion
 # [] Calculate Grain Surplus
 #   [] Calculate Taxes owed on grain harvest
-#       [] Gross Taxes: (owed on the total harvest)
-#           [] Lordly Tax
-#           [] Religious Tithes
+#       [x] Gross Taxes: (owed on the total harvest)
+#           [x] Lordly Tax
+#           [x] Religious Tithes
 #       [] Net Taxes: (owed on whats left after Gross Taxes)
 #           [] Logistic Taxes (tolls)
-#           [] Spoilage (Not really a tax but does effect net grain supply)
+#           [x] Spoilage (Not really a tax but does effect net grain supply)
 #   [] Calculate grain losses:
 #       [] Logistics Losses (spillage, contamination, etc...)
 #       [] Next year's seed bank
@@ -37,6 +37,8 @@ def main():
     has_salt = False
     field_system = "2 Fields"
     tech = ["heavy plow", "terracing", "livestock", "irrigation", "automills"]
+    cap_tax = 0.2
+    religious_tithe = .1
 
     arable_river_land = find_river_zone(river_navigable_length_upstream)
     arable_coastal_land = find_coast_zone(coastline)
@@ -55,15 +57,22 @@ def main():
     max_urban_population = (max_population - rural_population)  // urban_grain_req_mod
 
     gross_harvest = gross_grain_harvest(farming_families, Soil_Dict[zone]["Plot Size"], Field_Sys_Dict[field_system], yield_mod)
+    harvest_capitol_taxes = math.floor(determine_capitol_taxes(gross_harvest, cap_tax))
+    harvest_religious_tithe = math.floor(determine_religious_tithe(gross_harvest, religious_tithe))
+    harvest_after_taxes = gross_harvest - harvest_capitol_taxes - harvest_religious_tithe
+    spoilage = harvest_after_taxes * Constants.GRAIN_SPOILAGE_PER_HARVEST
+    harvest_after_spoilage = harvest_after_taxes - spoilage
 
 
 
-    print(f'Land utilized for agriculture is {useable_arable_land:,} acres.')
-    print(f'The typical plot size in the current area is: {Soil_Dict[zone]["Plot Size"]} acres.')
-    print(f'The yield modifier for grain harvest is {yield_mod}.')
-    print(f'The number of farming families in the area is {farming_families:,} families, the total rural population is {rural_population:,} people.')
-    print(f'The maximum urban and non-farmer population of this city is {max_urban_population:,} people')
+    #print(f'Land utilized for agriculture is {useable_arable_land:,} acres.')
+    #print(f'The typical plot size in the current area is: {Soil_Dict[zone]["Plot Size"]} acres.')
+    #print(f'The yield modifier for grain harvest is {yield_mod}.')
+    #print(f'The number of farming families in the area is {farming_families:,} families, the total rural population is {rural_population:,} people.')
+    #print(f'The maximum urban and non-farmer population of this city is {max_urban_population:,} people')
     print(f'The gross harvest this city should expect is {gross_harvest:,} buckets of grain.')
+    print(f'Gross Harvest after taxes is {harvest_after_taxes:,} buckets of grain.')
+    print(f'Grain buckets left are spoilage is {harvest_after_spoilage:,}.')
 
 
 main()
