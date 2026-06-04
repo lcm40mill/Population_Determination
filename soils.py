@@ -23,3 +23,11 @@ Field_Sys_Dict = {
     "3 Fields": 0.67,
     "Floodplains": 1
 }
+
+Grain_Toll__Dict = {
+    1: {"type": "maintained road", "toll": 0.01},
+    2: {"type": "small bridge", "toll": 0.02},
+    3: {"type": "guarded road", "toll": 0.04},
+    4: {"type": "major river crossing", "toll": 0.03},
+    5: {"type": "polictical", "toll": 0.05}
+}

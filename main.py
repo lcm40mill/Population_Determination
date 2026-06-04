@@ -4,6 +4,9 @@ from soils import *
 from arable_supply import *
 
 # TO DO List
+#   [/] == in progress
+#   [x] == base function complete
+#
 # [x] Calculate Population and population dispersion (farmers vs urban/non-farmers)
 # [x] Calculate expected gross grain harvest
 # [x] Apply urban population support if population center has fish and salt
@@ -14,7 +17,7 @@ from arable_supply import *
 #           [x] Lordly Tax
 #           [x] Religious Tithes
 #       [] Net Taxes: (owed on whats left after Gross Taxes)
-#           [] Logistic Taxes (tolls)
+#           [/] Logistic Taxes (tolls)
 #           [x] Spoilage (Not really a tax but does effect net grain supply)
 #   [] Calculate grain losses:
 #       [] Logistics Losses (spillage, contamination, etc...)
@@ -22,6 +25,11 @@ from arable_supply import *
 #       [] Subsistence (a family needs to eat)
 #   [] Total Grain surplus = Net Grain Surplus + Percentage of Lordly Tax that does not get used (~20%)
 # [] Determine max urban population based off of grain surplus
+#
+# [] Future thoughts - Price prediction in a coinage economy:
+#   [] Cost of grain purchase
+#   [] Cost of grain labor
+#   [] Cost of grain logistics
 # stuff and things
 
 
