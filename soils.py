@@ -24,7 +24,7 @@ Field_Sys_Dict = {
     "Floodplains": 1
 }
 
-Grain_Toll__Dict = {
+Grain_Toll_Dict = {
     1: {"type": "maintained road", "toll": 0.01},
     2: {"type": "small bridge", "toll": 0.02},
     3: {"type": "guarded road", "toll": 0.04},

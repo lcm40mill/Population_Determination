@@ -12,15 +12,16 @@ from arable_supply import *
 # [x] Apply urban population support if population center has fish and salt
 # [x] Apply tech modifiers for yield, arable land usage, and population dispersion
 # [] Calculate Grain Surplus
-#   [] Calculate Taxes owed on grain harvest
+#   [x] Calculate Taxes owed on grain harvest
 #       [x] Gross Taxes: (owed on the total harvest)
 #           [x] Lordly Tax
 #           [x] Religious Tithes
-#       [] Net Taxes: (owed on whats left after Gross Taxes)
-#           [/] Logistic Taxes (tolls)
+#       [x] Net Taxes: (owed on whats left after Gross Taxes)
+#           [x] Logistic Taxes (tolls)
 #           [x] Spoilage (Not really a tax but does effect net grain supply)
 #   [] Calculate grain losses:
-#       [] Logistics Losses (spillage, contamination, etc...)
+#       [x] Logistics Losses (spillage, contamination, etc...)
+#       [x] Granary Tax 
 #       [] Next year's seed bank
 #       [] Subsistence (a family needs to eat)
 #   [] Total Grain surplus = Net Grain Surplus + Percentage of Lordly Tax that does not get used (~20%)
@@ -38,15 +39,18 @@ def main():
     #Does not account for multiple zone typings, not sure if that is relevant maybe for extended river runs into an interior plains
     
     #These are going to be converted to user inputs at a later date
+    miles_travelled_overland = 10
     river_navigable_length_upstream = 15
     coastline = 0
     zone = 2
+    final_destination = True
     has_fishery = False
     has_salt = False
     field_system = "2 Fields"
     tech = ["heavy plow", "terracing", "livestock", "irrigation", "automills"]
     cap_tax = 0.2
     religious_tithe = .1
+    tolls_encountered = [1,2]
 
     arable_river_land = find_river_zone(river_navigable_length_upstream)
     arable_coastal_land = find_coast_zone(coastline)
@@ -68,8 +72,17 @@ def main():
     harvest_capitol_taxes = math.floor(determine_capitol_taxes(gross_harvest, cap_tax))
     harvest_religious_tithe = math.floor(determine_religious_tithe(gross_harvest, religious_tithe))
     harvest_after_taxes = gross_harvest - harvest_capitol_taxes - harvest_religious_tithe
-    spoilage = harvest_after_taxes * Constants.GRAIN_SPOILAGE_PER_HARVEST
+    spoilage = math.floor(harvest_after_taxes * Constants.GRAIN_SPOILAGE_PER_HARVEST)
     harvest_after_spoilage = harvest_after_taxes - spoilage
+
+    expected_tolls = math.floor(total_tolls(harvest_after_spoilage, tolls_encountered))
+    grain_after_tolls = harvest_after_spoilage - expected_tolls
+
+    grain_spilled = math.floor(grain_spillage_from_travel(grain_after_tolls, miles_travelled_overland, True))
+    grain_after_spillage = grain_after_tolls - grain_spilled
+
+    grain_left_after_granary = math.floor(city_is_final_destination(grain_after_spillage, final_destination))
+    granary_grain = grain_after_spillage - grain_left_after_granary
 
 
 
@@ -81,6 +94,9 @@ def main():
     print(f'The gross harvest this city should expect is {gross_harvest:,} buckets of grain.')
     print(f'Gross Harvest after taxes is {harvest_after_taxes:,} buckets of grain.')
     print(f'Grain buckets left after spoilage is {harvest_after_spoilage:,}.')
+    print(f'The expected tolls to reach the city equals {expected_tolls:,} buckets.')
+    print(f'Grain spilled during travel to the city equals {grain_spilled:,} buckets, grain remaining {grain_after_spillage:,} buckets')
+    print(f'The city takes {granary_grain:,} buckets of grain for their granary, excess grain equals {grain_left_after_granary:,} buckets.')
 
 
 main()

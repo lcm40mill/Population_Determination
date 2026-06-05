@@ -71,3 +71,25 @@ def determine_capitol_taxes(gross_harvest, capitol_tax):
 
 def determine_religious_tithe(gross_harvest, religious_tithe):
     return gross_harvest * (religious_tithe)
+
+def determine_toll(toll_rate, grain_cargo):
+    return grain_cargo * toll_rate
+
+def total_tolls(grain_cargo, tolls = []):
+    total_toll = 0
+    for t in tolls:
+        total_toll += determine_toll(Grain_Toll_Dict[t]["toll"], grain_cargo)
+    return total_toll
+
+def grain_spillage_from_travel(grain_cargo, land_miles, travel_river = False, travel_coastal = False):
+    spill_rate = land_miles * Constants.GRAIN_OVERLAND_SPILLAGE_PER_MILE
+    if travel_coastal:
+        spill_rate += Constants.GRAIN_OPEN_SEA_SPILLAGE
+    if travel_river:
+        spill_rate += Constants.GRAIN_WATER_HANDLING_SPILLAGE
+    return grain_cargo * spill_rate
+
+def city_is_final_destination(grain_cargo, final = False):
+    if final:
+        grain_cargo *= (1 - Constants.GRANARY_RESERVE)
+    return grain_cargo
